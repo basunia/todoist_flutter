@@ -11,18 +11,17 @@ void main() {
 class RootApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // return MultiProvider(
-    //   providers: [
-    //     ChangeNotifierProvider<AuthProvider>(
-    //       create: (_) => AuthProvider(),
-    //       lazy: false,
-    //     )
-    //   ],
-    //   child: OverlaySupport(
-    //     child: MainApp,
-    //   ),
-    // );
-    return MainApp();
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AuthProvider>(
+          create: (_) => AuthProvider(),
+          lazy: false,
+        )
+      ],
+      child: OverlaySupport(
+        child: MainApp(),
+      ),
+    );
   }
 }
 
