@@ -1,6 +1,6 @@
-# todoist_app
+# todoist_flutter
 
-A new Flutter project.
+A todoist client app developed in flutter.
 
 ## Getting Started
 
