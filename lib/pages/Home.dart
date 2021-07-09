@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoist_app/provider/auth_provider.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -13,9 +14,20 @@ class _HomeState extends State<Home> {
         title: Text('Todoist flutter'),
       ),
       body: Center(
-        child: Text(
-          'Hello todoister',
-          textScaleFactor: 1.5,
+        child: Column(
+          children: [
+            Text(
+              'Hello todoister',
+              textScaleFactor: 1.5,
+            ),
+            TextButton(
+                style: ButtonStyle(
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.blue),
+                ),
+                child: Text('Login with todoist'),
+                onPressed: () => AuthProvider.of(context).oAuth2Login(() {})),
+          ],
         ),
       ),
     );
