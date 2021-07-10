@@ -88,4 +88,10 @@ class AuthProvider extends ChangeNotifier {
       }
     }
   }
+
+  @override
+  void dispose() {
+    _sub?.cancel();
+    super.dispose();
+  }
 }
