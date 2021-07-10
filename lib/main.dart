@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:todoist_app/pages/Home.dart';
 import 'package:todoist_app/provider/auth_provider.dart';
 
-void main() {
+void main() async {
+  dotenv.load(fileName: '.env');
   runApp(RootApp());
 }
 

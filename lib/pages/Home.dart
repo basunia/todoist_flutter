@@ -26,7 +26,10 @@ class _HomeState extends State<Home> {
                       MaterialStateProperty.all<Color>(Colors.blue),
                 ),
                 child: Text('Login with todoist'),
-                onPressed: () => AuthProvider.of(context).oAuth2Login(() {})),
+                onPressed: () =>
+                    AuthProvider.of(context).oAuth2Login((accessToken) {
+                      print('Access token $accessToken');
+                    })),
           ],
         ),
       ),
