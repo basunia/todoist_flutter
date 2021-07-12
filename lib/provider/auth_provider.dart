@@ -99,8 +99,6 @@ class AuthProvider extends ChangeNotifier {
       Http.getDio()?.options.headers['Authorization'] = 'Bearer $accessToken';
       Response? response = await Http.getDio()?.get('rest/v1/projects');
 
-      // this.callback!(response?.data['access_token']);
-
       return response?.data.map<Project>((e) => Project.fromMap(e)).toList();
     } on DioError catch (e) {
       if (e.response != null) {
