@@ -6,6 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:oauth2/oauth2.dart' as oauth2;
+import 'package:todoist_app/model/Project.dart';
 import 'package:todoist_app/util/http_client.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -24,6 +25,8 @@ class AuthProvider extends ChangeNotifier {
   final redirectUrl = Uri.parse('https://gtaf.org');
   oauth2.AuthorizationCodeGrant? grant;
   StreamSubscription? _sub;
+
+  var accessToken;
 
   void oAuth2Login(Function callback) {
     this.callback = callback;
@@ -64,7 +67,7 @@ class AuthProvider extends ChangeNotifier {
         oauth2HttpSignIn(responseUrl?.queryParameters['code']);
       }
     }, onError: (err) {
-      toast('Failed to sign in using Google');
+      toast('Failed to sign in using oauth');
     });
 
     return responseUrl;
@@ -81,10 +84,28 @@ class AuthProvider extends ChangeNotifier {
         'redirect_uri': redirectUrl.toString()
       });
 
+      accessToken = response?.data['access_token'];
       this.callback!(response?.data['access_token']);
     } on DioError catch (e) {
       if (e.response != null) {
         print(e.response);
+      }
+    }
+  }
+
+  Future<List<Project>?> getAllTasks() async {
+    try {
+      Http.getDio()?.options.baseUrl = 'https://api.todoist.com/'.toString();
+      Http.getDio()?.options.headers['Authorization'] = 'Bearer $accessToken';
+      Response? response = await Http.getDio()?.get('rest/v1/projects');
+
+      // this.callback!(response?.data['access_token']);
+
+      return response?.data.map<Project>((e) => Project.fromMap(e)).toList();
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print(e.response);
+        return null;
       }
     }
   }

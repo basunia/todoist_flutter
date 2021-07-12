@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoist_app/pages/Tasks.dart';
 import 'package:todoist_app/provider/auth_provider.dart';
 
 class Home extends StatefulWidget {
@@ -29,6 +30,12 @@ class _HomeState extends State<Home> {
                 onPressed: () =>
                     AuthProvider.of(context).oAuth2Login((accessToken) {
                       print('Access token $accessToken');
+                      if (accessToken != null) {
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) {
+                          return Tasks();
+                        }));
+                      }
                     })),
           ],
         ),
