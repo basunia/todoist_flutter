@@ -31,7 +31,7 @@ class _TasksState extends State<Tasks> {
                 child: (data != null)
                     ? ListView.builder(
                         itemBuilder: (context, i) {
-                          return Text(data![i].name!);
+                          return Text(data![i].name!, style: TextStyle(fontSize: 16.0),);
                         },
                         itemCount: data?.length,
                       )

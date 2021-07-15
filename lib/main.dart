@@ -20,9 +20,9 @@ class RootApp extends StatelessWidget {
           lazy: false,
         )
       ],
-      child: OverlaySupport(
+      // child: OverlaySupport(
         child: MainApp(),
-      ),
+      // ),
     );
   }
 }
