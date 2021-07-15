@@ -26,6 +26,7 @@ class _TasksState extends State<Tasks> {
         ),
         body: !isLoading
             ? Container(
+              padding: EdgeInsets.all(12.0),
                 alignment: Alignment.center,
                 child: (data != null)
                     ? ListView.builder(

@@ -7,7 +7,7 @@ class Http {
   static Dio? getDio() {
     if (_dio == null) {
       _dio = new Dio();
-      _dio?.options.baseUrl = "https://staging-data.gtaf.org/api/";
+      _dio?.options.baseUrl = "https://todoist.com/";
       _dio?.options.connectTimeout = 5000; //5s
       _dio?.options.receiveTimeout = 3000;
       _dio?.interceptors.add(PrettyDioLogger(
