@@ -7,6 +7,8 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:oauth2/oauth2.dart' as oauth2;
 import 'package:todoist_app/model/Project.dart';
+import 'package:todoist_app/model/Task.dart';
+import 'package:todoist_app/pages/Project.dart';
 import 'package:todoist_app/util/http_client.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -108,7 +110,7 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<List<Project>?> getAllTasks(int projectId) async {
+  Future<List<Task>?> getAllTasks(int projectId) async {
     try {
       Http.getDio()?.options.baseUrl = 'https://api.todoist.com/'.toString();
       Http.getDio()?.options.headers['Authorization'] = 'Bearer $accessToken';

@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:todoist_app/model/Project.dart';
-import 'package:todoist_app/model/Task.dart';
 import 'package:todoist_app/provider/auth_provider.dart';
 import 'package:todoist_app/widget/progress_bar.dart';
 
-class Tasks extends StatefulWidget {
-
-  Tasks({this.projectId});
-  final int? projectId;
+class Projects extends StatefulWidget {
   @override
-  _TasksState createState() => _TasksState();
+  _ProjectsState createState() => _ProjectsState();
 }
 
-class _TasksState extends State<Tasks> {
-  List<Task>? data = [];
+class _ProjectsState extends State<Projects> {
+  List<Project>? data = [];
   bool isLoading = false;
   @override
   void initState() {
@@ -35,7 +31,7 @@ class _TasksState extends State<Tasks> {
                 child: (data != null)
                     ? ListView.builder(
                         itemBuilder: (context, i) {
-                          return Text(data![i].content!, style: TextStyle(fontSize: 16.0),);
+                          return Text(data![i].name!, style: TextStyle(fontSize: 16.0),);
                         },
                         itemCount: data?.length,
                       )
@@ -50,7 +46,7 @@ class _TasksState extends State<Tasks> {
     setState(() {
       isLoading = true;
     });
-    List<Task>? tasks = await AuthProvider.of(context).getAllTasks(widget.projectId!);
+    List<Project>? tasks = await AuthProvider.of(context).getAllProjects();
     setState(() {
       data = tasks;
       isLoading = false;
