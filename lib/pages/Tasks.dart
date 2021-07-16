@@ -46,7 +46,7 @@ class _TasksState extends State<Tasks> {
     setState(() {
       isLoading = true;
     });
-    List<Project>? tasks = await AuthProvider.of(context).getAllTasks();
+    List<Project>? tasks = await AuthProvider.of(context).getAllProjects();
     setState(() {
       data = tasks;
       isLoading = false;

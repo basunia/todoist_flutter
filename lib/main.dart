@@ -35,6 +35,6 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Dodoist flutter', home: Home());
+    return MaterialApp(title: 'Dodoist flutter', home: OverlaySupport(child: Home()));
   }
 }

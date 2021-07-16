@@ -93,11 +93,28 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<List<Project>?> getAllTasks() async {
+  Future<List<Project>?> getAllProjects() async {
     try {
       Http.getDio()?.options.baseUrl = 'https://api.todoist.com/'.toString();
       Http.getDio()?.options.headers['Authorization'] = 'Bearer $accessToken';
       Response? response = await Http.getDio()?.get('rest/v1/projects');
+
+      return response?.data.map<Project>((e) => Project.fromMap(e)).toList();
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print(e.response);
+        return null;
+      }
+    }
+  }
+
+  Future<List<Project>?> getAllTasks(int projectId) async {
+    try {
+      Http.getDio()?.options.baseUrl = 'https://api.todoist.com/'.toString();
+      Http.getDio()?.options.headers['Authorization'] = 'Bearer $accessToken';
+      Response? response = await Http.getDio()?.get('rest/v1/tasks', queryParameters: {
+        "project_id": projectId
+      });
 
       return response?.data.map<Project>((e) => Project.fromMap(e)).toList();
     } on DioError catch (e) {
