@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todoist_app/model/Project.dart';
+import 'package:todoist_app/model/Task.dart';
+import 'package:todoist_app/pages/Tasks.dart';
 import 'package:todoist_app/provider/auth_provider.dart';
 import 'package:todoist_app/widget/progress_bar.dart';
 
@@ -31,7 +33,12 @@ class _ProjectsState extends State<Projects> {
                 child: (data != null)
                     ? ListView.builder(
                         itemBuilder: (context, i) {
-                          return Text(data![i].name!, style: TextStyle(fontSize: 16.0),);
+                          return TextButton(onPressed: (){
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                              return Tasks(projectId: data![i].id,);
+                            }));
+                          },
+                           child: Text(data![i].name!, style: TextStyle(fontSize: 16.0),));
                         },
                         itemCount: data?.length,
                       )
