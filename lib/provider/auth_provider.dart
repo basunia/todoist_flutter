@@ -6,6 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:oauth2/oauth2.dart' as oauth2;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todoist_app/model/Project.dart';
 import 'package:todoist_app/model/Task.dart';
 import 'package:todoist_app/util/http_client.dart';
@@ -13,9 +14,6 @@ import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AuthProvider extends ChangeNotifier {
-  static AuthProvider of(BuildContext context) {
-    return Provider.of<AuthProvider>(context, listen: false);
-  }
 
   Function? callback;
   final authorizationEndPoint =
@@ -26,8 +24,26 @@ class AuthProvider extends ChangeNotifier {
   final redirectUrl = Uri.parse('https://developer.todoist.com');
   oauth2.AuthorizationCodeGrant? grant;
   StreamSubscription? _sub;
-
   var accessToken;
+
+  AuthProvider(){
+    _read();
+  }
+
+  static AuthProvider of(BuildContext context) {
+    return Provider.of<AuthProvider>(context, listen: false);
+  }
+
+_read() async{
+  final prefs = await SharedPreferences.getInstance();
+  final token = prefs.getString('token');
+  if (token != null && token.isNotEmpty){
+    accessToken = token;
+    Http.getDio()?.options.headers['Authorization'] = 'Bearer $accessToken';
+    notifyListeners();
+  }
+}
+ 
 
   void oAuth2Login(Function callback) {
     this.callback = callback;
@@ -97,7 +113,7 @@ class AuthProvider extends ChangeNotifier {
   Future<List<Project>?> getAllProjects() async {
     try {
       Http.getDio()?.options.baseUrl = 'https://api.todoist.com/'.toString();
-      Http.getDio()?.options.headers['Authorization'] = 'Bearer $accessToken';
+      // Http.getDio()?.options.headers['Authorization'] = 'Bearer $accessToken';
       Response? response = await Http.getDio()?.get('rest/v1/projects');
 
       return response?.data.map<Project>((e) => Project.fromMap(e)).toList();
@@ -112,7 +128,7 @@ class AuthProvider extends ChangeNotifier {
   Future<List<Task>?> getAllTasks(int projectId) async {
     try {
       Http.getDio()?.options.baseUrl = 'https://api.todoist.com/'.toString();
-      Http.getDio()?.options.headers['Authorization'] = 'Bearer $accessToken';
+      // Http.getDio()?.options.headers['Authorization'] = 'Bearer $accessToken';
       Response? response = await Http.getDio()?.get('rest/v1/tasks', queryParameters: {
         "project_id": projectId
       });
