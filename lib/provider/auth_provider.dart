@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 import 'package:oauth2/oauth2.dart' as oauth2;
 import 'package:todoist_app/model/Project.dart';
 import 'package:todoist_app/model/Task.dart';
-import 'package:todoist_app/pages/Project.dart';
 import 'package:todoist_app/util/http_client.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -24,7 +23,7 @@ class AuthProvider extends ChangeNotifier {
   final tokenEndPoint = Uri.parse('https://todoist.com/oauth/access_token');
   final identifier = dotenv.env['TODOIST_IDENTIFIER'];
   final secret = dotenv.env['TODOIST_SECRET'];
-  final redirectUrl = Uri.parse('https://gtaf.org');
+  final redirectUrl = Uri.parse('https://developer.todoist.com');
   oauth2.AuthorizationCodeGrant? grant;
   StreamSubscription? _sub;
 

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:todoist_app/model/Project.dart';
 import 'package:todoist_app/pages/Tasks.dart';
 import 'package:todoist_app/provider/auth_provider.dart';
+
+import 'Projects.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -33,7 +36,7 @@ class _HomeState extends State<Home> {
                       if (accessToken != null) {
                         Navigator.of(context)
                             .push(MaterialPageRoute(builder: (context) {
-                          return Tasks();
+                          return Projects();
                         }));
                       }
                     })),

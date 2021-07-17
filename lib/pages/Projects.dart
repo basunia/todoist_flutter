@@ -24,7 +24,7 @@ class _ProjectsState extends State<Projects> {
     return Container(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Tasks'),
+          title: Text('Projects'),
         ),
         body: !isLoading
             ? Container(

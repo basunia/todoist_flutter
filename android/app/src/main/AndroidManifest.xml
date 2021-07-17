@@ -45,7 +45,7 @@
               <!-- Accepts URIs that begin with YOUR_SCHEME://YOUR_HOST -->
               <data
                 android:scheme="https"
-                android:host="gtaf.org"
+                android:host="developer.todoist.com"
                 android:pathPattern=".*"
                 />
             </intent-filter>
