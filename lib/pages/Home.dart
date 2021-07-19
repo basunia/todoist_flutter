@@ -20,7 +20,8 @@ class _HomeState extends State<Home> {
         title: Text('Todoist flutter'),
       ),
       drawer: Drawer(child: Projects()),
-      body: Center(
+      body: Builder(builder: (context){
+        return Center(
         child: Column(
           children: [
             Text(
@@ -29,6 +30,9 @@ class _HomeState extends State<Home> {
             ),
             loginButton(context, (accessToken){
               toast('Login successfull');
+              setState(() {
+                
+              });
             })
             // TextButton(
             //     style: ButtonStyle(
@@ -49,7 +53,8 @@ class _HomeState extends State<Home> {
             //         })),
           ],
         ),
-      ),
+      );
+      },),
     );
   }
 }

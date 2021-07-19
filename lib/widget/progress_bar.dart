@@ -9,10 +9,12 @@ Widget circularProgress() {
 
 Widget loginButton(BuildContext context, Function onLoginCallback){
   final accessToken = AuthProvider.of(context).accessToken;
-  return accessToken!= null? TextButton(
-    onPressed: (){
-      Scaffold.of(context).openDrawer();
-  }, child: Text('Open naviaggation drawer'))
+  return (accessToken!= null && (accessToken as String).isNotEmpty)? 
+   TextButton(
+      onPressed: (){
+        Scaffold.of(context).openDrawer();
+    }, child: Text('Open navigation drawer'))
+  
   :TextButton(
     onPressed: (){
       AuthProvider.of(context).oAuth2Login((accessToken){

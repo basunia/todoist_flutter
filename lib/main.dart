@@ -6,6 +6,7 @@ import 'package:todoist_app/pages/Home.dart';
 import 'package:todoist_app/provider/auth_provider.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   dotenv.load(fileName: '.env');
   runApp(RootApp());
 }
@@ -21,7 +22,7 @@ class RootApp extends StatelessWidget {
         )
       ],
       // child: OverlaySupport(
-        child: OverlaySupport(child: MainApp()),
+        child: Builder(builder: (context)=> OverlaySupport(child: MainApp()),) ,
       // ),
     );
   }

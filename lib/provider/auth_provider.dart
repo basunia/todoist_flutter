@@ -25,6 +25,7 @@ class AuthProvider extends ChangeNotifier {
   oauth2.AuthorizationCodeGrant? grant;
   StreamSubscription? _sub;
   var accessToken;
+  final String TOKEN = 'token';
 
   AuthProvider(){
     _read();
@@ -36,7 +37,7 @@ class AuthProvider extends ChangeNotifier {
 
 _read() async{
   final prefs = await SharedPreferences.getInstance();
-  final token = prefs.getString('token');
+  final token = prefs.getString(TOKEN);
   if (token != null && token.isNotEmpty){
     accessToken = token;
     Http.getDio()?.options.headers['Authorization'] = 'Bearer $accessToken';
@@ -102,6 +103,9 @@ _read() async{
       });
 
       accessToken = response?.data['access_token'];
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString(TOKEN, accessToken);
+      notifyListeners();
       this.callback!(response?.data['access_token']);
     } on DioError catch (e) {
       if (e.response != null) {
