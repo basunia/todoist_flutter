@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:todoist_app/model/Project.dart';
-import 'package:todoist_app/pages/Tasks.dart';
-import 'package:todoist_app/provider/auth_provider.dart';
 import 'package:todoist_app/widget/progress_bar.dart';
 
 import 'Projects.dart';
